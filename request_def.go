@@ -13,101 +13,68 @@ type ResponseHead struct {
 	Cmd       int32  `json:"cmd"`
 }
 
-type SystemManagerUserReqData struct {
-	SysUserId    string   `json:"sysUserId"`
-	UserName     string   `json:"userName"`
-	LoginName    string   `json:"loginName"`
-	UserMobile   string   `json:"userMobile"`
-	UserEMail    string   `json:"userEMail"`
-	Passwd       string   `json:"passwd"`
-	HeadPortrait string   `json:"headPortrait"`
-	RoleList     []string `json:"roleList"`
+type WxpluginProgramManagerData struct {
+	ProgId      string `json:"progId"`
+	ProgName    string `json:"progName"`
+	WsId        string `json:"wsId"`
+	AppId       string `json:"appId"`
+	AppSecrete  string `json:"appSecrete"`
+	ProgramType int32  `json:"programType"`
 }
 
-type SystemManagerUserReq struct {
+type WxpluginProgramManagerReq struct {
 	RequestHead
-	Data SystemManagerUserReqData `json:"data"`
+	Data WxpluginProgramManagerData `json:"data"`
 }
 
-type SystemManagerUserRespData struct {
-	SysUserId  string `json:"sysUserId"`
-	UserName   string `json:"userName"`
-	LoginName  string `json:"loginName"`
-	UserMobile string `json:"userMobile"`
-	UserEMail  string `json:"userEMail"`
-}
-
-type SystemManagerUserResp struct {
+type WxpluginProgramManagerResp struct {
 	ResponseHead
-	Data SystemManagerUserRespData `json:"data"`
+	Data WxpluginProgramManagerData `json:"data"`
 }
 
-type SystemManagerRoleReq struct {
+type GoodsVarietyManagerData struct {
+	VarietyId   string `json:"varietyId"`
+	VarietyName string `json:"varietyName"`
+}
+
+type GoodsVarietyManagerReq struct {
 	RequestHead
-	Data SystemManagerRoleReqData `json:"data"`
+	Data GoodsVarietyManagerData `json:"data"`
 }
 
-type SystemManagerRoleReqData struct {
-	RoleId     string   `json:"roleId"`
-	RoleName   string   `json:"roleName"`
-	RoleLevel  int32    `json:"roleLevel"`
-	RoleParent string   `json:"roleParent"`
-	UserList   []string `json:"userList"`
-}
-
-type SystemManagerRoleResp struct {
+type GoodsVarietyManagerResp struct {
 	ResponseHead
-	Data SystemManagerRoleRespData `json:"data"`
+	Data GoodsVarietyManagerData `json:"data"`
 }
 
-type SystemManagerRoleRespData struct {
-	RoleId    string `json:"roleId"`
-	RoleName  string `json:"roleName"`
-	RoleLevel int32  `json:"roleLevel"`
+type GoodsManagerData struct {
+	GoodsId     string                    `json:"goodsId"`
+	GoogdsName  string                    `json:"googdsName"`
+	VarietyId   string                    `json:"varietyId"`
+	GoodsBrief  string                    `json:"goodsBrief"`
+	GoodsPrice  int32                     `json:"goodsPrice"`
+	ChargeUnit  int32                     `json:"chargeUnit"`
+	GoodsWeight int32                     `json:"goodsWeight"`
+	WeightUnit  int32                     `json:"weightUnit"`
+	GoodsCode   string                    `json:"goodsCode"`
+	FactoryId   string                    `json:"factoryId"`
+	pictureList []GoodsManagerDataPicture `json:"pictureList"`
 }
 
-type SystemManagerMenuReq struct {
+type GoodsManagerDataPicture struct {
+	PictureId    string `json:"pictureId"`
+	PicturePath  string `json:"pictureId"`
+	PictureOrder int32  `json:"pictureOrder"`
+	PictureName  string `json:"pictureName"`
+	PictureDesc  string `json:"pictureDesc"`
+}
+
+type GoodsManagerReq struct {
 	RequestHead
-	Data SystemManagerMenuReqData `json:"data"`
+	Data GoodsManagerData `json:"data"`
 }
 
-type SystemManagerMenuReqData struct {
-	MenuId     string `json:"menuId"`
-	MenuName   string `json:"menuName"`
-	MenuLevel  int32  `json:"menuLevel"`
-	MenuParent string `json:"menuParent"`
-	MenuLink   string `json:"menuLink"`
-}
-
-type SystemManagerMenuResp struct {
+type GoodsManagerResp struct {
 	ResponseHead
-	Data SystemManagerMenuRespData `json:"data"`
-}
-
-type SystemManagerMenuRespData struct {
-	MenuId    string `json:"menuId"`
-	MenuName  string `json:"menuName"`
-	MenuLevel int32  `json:"menuLevel"`
-}
-
-type SystemManagerPrivilegeReq struct {
-	RequestHead
-	Data SystemManagerPrivilegeData `json:"data"`
-}
-
-type SystemManagerPrivilegeData struct {
-	PowerId  string   `json:"powerId"`
-	RoleId   string   `json:"roleId"`
-	MenuList []string `json:"menuList"`
-}
-
-type SystemManagerPrivilegeRespData struct {
-	PowerId string `json:"powerId"`
-	RoleId  string `json:"roleId"`
-	MenuId  string `json:"menuId"`
-}
-
-type SystemManagerPrivilegeResp struct {
-	ResponseHead
-	Data []SystemManagerPrivilegeRespData `json:"data"`
+	Data GoodsManagerData `json:"data"`
 }
