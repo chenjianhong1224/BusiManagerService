@@ -78,3 +78,57 @@ type GoodsManagerResp struct {
 	ResponseHead
 	Data GoodsManagerData `json:"data"`
 }
+
+type FactoryManagerData struct {
+	FactoryId      string `json:"factoryId"`
+	FactoryName    string `json:"factoryName"`
+	LinkPerson     string `json:"linkPerson"`
+	LinkPhone      string `json:"linkPhone"`
+	FactoryAddress string `json:"factoryAddress"`
+}
+
+type FactoryManagerReq struct {
+	RequestHead
+	Data FactoryManagerData `json:"data"`
+}
+
+type FactoryManagerResp struct {
+	ResponseHead
+	Data FactoryManagerData `json:"data"`
+}
+
+type WholesalerManagerData struct {
+	WholesalerId   string `json:"wholesalerId"`
+	WholesalerName string `json:"wholesalerName"`
+	LinkPhone      string `json:"linkPhone"`
+	Company        string `json:"company"`
+}
+
+type WholesalerManagerReq struct {
+	RequestHead
+	Data WholesalerManagerData `json:"data"`
+}
+
+type WholesalerManagerResp struct {
+	ResponseHead
+	Data WholesalerManagerData `json:"data"`
+}
+
+type WholesalerBannerManagerData struct {
+	BannerId   string `json:"bannerId"`
+	SalerId    string `json:"salerId"`
+	BannerName string `json:"bannerName"`
+	BannerPic  string `json:"bannerPic"`
+	ShowOrder  int32
+	LinkUri    string `json:"linkUri"`
+}
+
+type WholesalerBannerManagerReq struct {
+	RequestHead
+	Data WholesalerBannerManagerData `json:"data"`
+}
+
+type WholesalerBannerManagerResp struct {
+	ResponseHead
+	Data WholesalerBannerManagerData `json:"data"`
+}

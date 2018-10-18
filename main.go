@@ -65,7 +65,14 @@ func main() {
 
 	BuildLogger(&cfg.Logger)
 
-	svc := &httpHandler{cfg: cfg, wxpluginProgramSV: &wxpluginProgram_service{d: db}}
+	svc := &httpHandler{
+		cfg:                cfg,
+		wxpluginProgramSv:  &wxpluginProgram_service{d: db},
+		factorySv:          &factory_service{d: db},
+		goodsSv:            &goods_service{d: db},
+		goodsVarietySv:     &goodsVariety_service{d: db},
+		wholesalerBannerSv: &wholesaler_banner_service{d: db},
+	}
 	if err = svc.start(); err != nil {
 		panic(err)
 	}

@@ -18,60 +18,60 @@ type TWxpluginProgram struct {
 }
 
 type TGoodsVariety struct {
-	variety_id     int64
-	variety_uuid   string
-	variety_name   string
-	variety_ico    sql.NullString
-	variety_status int32
-	create_time    mysql.NullTime
-	create_user    sql.NullString
-	update_time    mysql.NullTime
-	update_user    sql.NullString
-	remark         sql.NullString
+	Variety_id     int64
+	Variety_uuid   string
+	Variety_name   string
+	Variety_ico    sql.NullString
+	Variety_status int32
+	Create_time    mysql.NullTime
+	Create_user    sql.NullString
+	Update_time    mysql.NullTime
+	Update_user    sql.NullString
+	Remark         sql.NullString
 }
 
 type TGoods struct {
-	goods_id       int64
-	goods_uuid     string
-	goods_name     string
-	goods_bar_code sql.NullString
-	factory_uuid   sql.NullString
-	goods_price    int32
-	charge_unit    int32
-	goods_weight   int32
-	weight_unit    int32
-	goods_desc     sql.NullString
-	goods_status   int32
-	whole_pack     int32
-	pack_unit      int32
-	variety_uuid   sql.NullString
-	create_time    mysql.NullTime
-	create_user    sql.NullString
-	update_time    mysql.NullTime
-	update_user    sql.NullString
+	Goods_id       int64
+	Goods_uuid     string
+	Goods_name     string
+	Goods_bar_code sql.NullString
+	Factory_uuid   sql.NullString
+	Goods_price    int32
+	Charge_unit    int32
+	Goods_weight   int32
+	Weight_unit    int32
+	Goods_desc     sql.NullString
+	Goods_status   int32
+	Whole_pack     int32
+	Pack_unit      int32
+	Variety_uuid   sql.NullString
+	Create_time    mysql.NullTime
+	Create_user    sql.NullString
+	Update_time    mysql.NullTime
+	Update_user    sql.NullString
 }
 
 type TGoodsPicture struct {
-	picture_id     int64
-	picture_uuid   string
-	picture_name   sql.NullString
-	picture_path   string
-	goods_uuid     sql.NullString
-	show_order     int32
-	picture_desc   sql.NullString
-	picture_status int32
-	size_variety   int32
+	Picture_id     int64
+	Picture_uuid   string
+	Picture_name   sql.NullString
+	Picture_path   string
+	Goods_uuid     sql.NullString
+	Show_order     int32
+	Picture_desc   sql.NullString
+	Picture_status int32
+	Size_variety   int32
 }
 
 type TFactory struct {
-	facotry_id      int64
-	factory_uuid    string
-	factory_name    string
-	link_person     sql.NullString
-	link_phone      sql.NullString
-	factory_desc    sql.NullString
-	factory_address sql.NullString
-	factory_status  int32
+	Facotry_id      int64
+	Factory_uuid    string
+	Factory_name    string
+	Link_person     sql.NullString
+	Link_phone      sql.NullString
+	Factory_desc    sql.NullString
+	Factory_address sql.NullString
+	Factory_status  int32
 }
 
 type TWholeSaler struct {
@@ -90,26 +90,26 @@ type TWholeSaler struct {
 }
 
 type TWholesalerBanner struct {
-	banner_id     int64
-	saler_uuid    string
-	banner_uuid   string
-	banner_name   sql.NullString
-	banner_pic    string
-	show_order    int32
-	banner_status int32
-	open_time     mysql.NullTime
-	close_time    mysql.NullTime
-	link_uri      sql.NullString
+	Banner_id     int64
+	Saler_uuid    string
+	Banner_uuid   string
+	Banner_name   sql.NullString
+	Banner_pic    string
+	Show_order    int32
+	Banner_status int32
+	Open_time     mysql.NullTime
+	Close_time    mysql.NullTime
+	Link_uri      sql.NullString
 }
 
 type TSalseman struct {
-	salesman_id     int64
-	salesman_uuid   string
-	saler_uuid      string
-	salesman_name   string
-	salesman_phone  string
-	entry_time      string
-	departure_time  mysql.NullTime
-	salesman_status int32
-	remark          sql.NullString
+	Salesman_id     int64
+	Salesman_uuid   string
+	Saler_uuid      string
+	Salesman_name   string
+	Salesman_phone  string
+	Entry_time      string
+	Departure_time  mysql.NullTime
+	Salesman_status int32
+	Remark          sql.NullString
 }
