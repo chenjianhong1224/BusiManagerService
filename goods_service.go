@@ -45,6 +45,15 @@ func (m *goods_service) addGoods(req GoodsManagerData, opId string) (string, err
 			Args: args2,
 		}
 		execReqList = append(execReqList, execReq2)
+		args3 := []interface{}{}
+		args3 = append(args3, uid.String())
+		args3 = append(args3, req.pictureList[i].PicturePath)
+		execReq3 := SqlExecRequest{
+			SQL:  "update T_Goods set Goods_picture = ? where goods_uuid = ?",
+			Args: args3,
+		}
+		execReqList = append(execReqList, execReq2)
+		execReqList = append(execReqList, execReq3)
 	}
 	err := m.d.dbCli.TransationExcute(execReqList)
 	if err == nil {

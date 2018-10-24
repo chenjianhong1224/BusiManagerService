@@ -49,6 +49,7 @@ type TGoods struct {
 	Create_user    sql.NullString
 	Update_time    mysql.NullTime
 	Update_user    sql.NullString
+	Goods_picture  sql.NullString
 }
 
 type TGoodsPicture struct {
@@ -112,4 +113,22 @@ type TSalseman struct {
 	Departure_time  mysql.NullTime
 	Salesman_status int32
 	Remark          sql.NullString
+}
+
+type TWholeSalerMember struct {
+	member_id     int64
+	member_uuid   string
+	saler_uuid    sql.NullString
+	salesman_uuid sql.NullString
+	member_name   sql.NullString
+	mobile        string
+	member_status int32
+	open_id       string
+	other_from    sql.NullString
+	member_bonus  int32
+	create_time   mysql.NullTime
+	create_user   sql.NullString
+	update_time   mysql.NullTime
+	update_user   sql.NullString
+	remark        sql.NullString
 }

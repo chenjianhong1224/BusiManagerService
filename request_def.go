@@ -132,3 +132,38 @@ type WholesalerBannerManagerResp struct {
 	ResponseHead
 	Data WholesalerBannerManagerData `json:"data"`
 }
+
+type SalsemanManagerData struct {
+	SalesmanId   string `json:"salesmanId"`
+	SalesmanName string `json:"salesmanName"`
+	LinkPhone    string `json:"linkPhone"`
+	WholesalerId string `json:"wholesalerId"`
+}
+
+type SalsemanManagerReq struct {
+	RequestHead
+	Data SalsemanManagerData `json:"data"`
+}
+
+type SalsemanManagerResp struct {
+	ResponseHead
+	Data SalsemanManagerData `json:"data"`
+}
+
+type WholesalerMemberManagerData struct {
+	MemberId     string `json:"memberId"`
+	MemberName   string `json:"memberName"`
+	LinkPhone    string `json:"linkPhone"`
+	WholesalerId string `json:"wholesalerId"`
+	SalesmanId   string `json:"salesmanId"`
+}
+
+type WholesalerMemberManagerReq struct {
+	RequestHead
+	Data WholesalerMemberManagerData `json:"data"`
+}
+
+type WholesalerMemberManagerResp struct {
+	ResponseHead
+	Data WholesalerMemberManagerData `json:"data"`
+}
