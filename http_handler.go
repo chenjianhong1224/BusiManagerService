@@ -158,21 +158,49 @@ func (m *httpHandler) processWxpluginProgram(body []byte, w http.ResponseWriter)
 		progId, err = m.wxpluginProgramSv.addWxpluginProgram(req.Data)
 		resp.Data.ProgId = progId
 	} else if req.Cmd == 2002 {
-		err = m.wxpluginProgramSv.updateWxpluginProgram(req.Data)
+		var tWxpluginPrograms []*TWxpluginProgram
+		var wxpluginProgramManagerData WxpluginProgramManagerData
+		wxpluginProgramManagerData = WxpluginProgramManagerData{ProgId: req.Data.ProgId}
+		tWxpluginPrograms, err = m.wxpluginProgramSv.queryWxpluginProgramByExample(wxpluginProgramManagerData)
+		if len(tWxpluginPrograms) == 0 {
+			err = errors.New("查询不到对应的数据")
+		} else {
+			if tWxpluginPrograms[0].Program_status == 0 {
+				err = errors.New("查询不到对应的数据")
+			} else {
+				err = m.wxpluginProgramSv.updateWxpluginProgram(req.Data)
+			}
+		}
 	} else if req.Cmd == 2004 {
-		err = m.wxpluginProgramSv.deleteWxpluginProgram(req.Data)
+		var tWxpluginPrograms []*TWxpluginProgram
+		var wxpluginProgramManagerData WxpluginProgramManagerData
+		wxpluginProgramManagerData = WxpluginProgramManagerData{ProgId: req.Data.ProgId}
+		tWxpluginPrograms, err = m.wxpluginProgramSv.queryWxpluginProgramByExample(wxpluginProgramManagerData)
+		if len(tWxpluginPrograms) == 0 {
+			err = errors.New("查询不到对应的数据")
+		} else {
+			if tWxpluginPrograms[0].Program_status == 0 {
+				err = errors.New("查询不到对应的数据")
+			} else {
+				err = m.wxpluginProgramSv.deleteWxpluginProgram(req.Data)
+			}
+		}
 	} else if req.Cmd == 2006 {
 		var tWxpluginPrograms []*TWxpluginProgram
 		tWxpluginPrograms, err = m.wxpluginProgramSv.queryWxpluginProgramByExample(req.Data)
 		if len(tWxpluginPrograms) == 0 {
 			err = errors.New("查询不到对应的数据")
 		} else {
-			resp.Data.AppId = tWxpluginPrograms[0].Appid
-			resp.Data.AppSecrete = tWxpluginPrograms[0].Appsecrete
-			resp.Data.ProgId = tWxpluginPrograms[0].Program_uuid
-			resp.Data.ProgName = tWxpluginPrograms[0].Program_name
-			resp.Data.ProgramType = tWxpluginPrograms[0].Program_type
-			resp.Data.WsId = tWxpluginPrograms[0].Saler_uuid.String
+			if tWxpluginPrograms[0].Program_status == 0 {
+				err = errors.New("查询不到对应的数据")
+			} else {
+				resp.Data.AppId = tWxpluginPrograms[0].Appid
+				resp.Data.AppSecrete = tWxpluginPrograms[0].Appsecrete
+				resp.Data.ProgId = tWxpluginPrograms[0].Program_uuid
+				resp.Data.ProgName = tWxpluginPrograms[0].Program_name
+				resp.Data.ProgramType = tWxpluginPrograms[0].Program_type
+				resp.Data.WsId = tWxpluginPrograms[0].Saler_uuid.String
+			}
 		}
 	}
 	if err != nil {
@@ -270,19 +298,41 @@ func (m *httpHandler) processWholesaler(body []byte, w http.ResponseWriter) {
 		wholesaler_uuid, err = m.wholesalerSv.addWholesaler(req.Data, req.UserId)
 		resp.Data.WholesalerId = wholesaler_uuid
 	} else if req.Cmd == 2082 {
-		err = m.wholesalerSv.updateWholesaler(req.Data, req.UserId)
+		exampleData := WholesalerManagerData{
+			WholesalerId: req.Data.WholesalerId,
+		}
+		var tWholeSaler []*TWholeSaler
+		tWholeSaler, err = m.wholesalerSv.queryWholesalerByExample(exampleData)
+		if len(tWholeSaler) == 0 {
+			err = errors.New("查询不到对应的数据")
+		} else {
+			err = m.wholesalerSv.updateWholesaler(req.Data, req.UserId)
+		}
 	} else if req.Cmd == 2084 {
-		err = m.wholesalerSv.deleteWholesaler(req.Data, req.UserId)
+		exampleData := WholesalerManagerData{
+			WholesalerId: req.Data.WholesalerId,
+		}
+		var tWholeSaler []*TWholeSaler
+		tWholeSaler, err = m.wholesalerSv.queryWholesalerByExample(exampleData)
+		if len(tWholeSaler) == 0 {
+			err = errors.New("查询不到对应的数据")
+		} else {
+			err = m.wholesalerSv.deleteWholesaler(req.Data, req.UserId)
+		}
 	} else if req.Cmd == 2086 {
 		var tWholeSaler []*TWholeSaler
 		tWholeSaler, err = m.wholesalerSv.queryWholesalerByExample(req.Data)
 		if len(tWholeSaler) == 0 {
 			err = errors.New("查询不到对应的数据")
 		} else {
-			resp.Data.WholesalerId = tWholeSaler[0].Saler_uuid
-			resp.Data.WholesalerName = tWholeSaler[0].Saler_name.String
-			resp.Data.Company = tWholeSaler[0].Company
-			resp.Data.LinkPhone = tWholeSaler[0].Mobile
+			if tWholeSaler[0].Saler_status == 1 {
+				resp.Data.WholesalerId = tWholeSaler[0].Saler_uuid
+				resp.Data.WholesalerName = tWholeSaler[0].Saler_name.String
+				resp.Data.Company = tWholeSaler[0].Company
+				resp.Data.LinkPhone = tWholeSaler[0].Mobile
+			} else {
+				err = errors.New("查询不到对应的数据")
+			}
 		}
 	}
 	if err != nil {

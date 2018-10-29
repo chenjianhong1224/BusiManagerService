@@ -42,7 +42,7 @@ func (m *wholesaler_service) addWholesaler(req WholesalerManagerData, opId strin
 		SQL:  "insert into t_wholesaler(Saler_uuid, Saler_name, Company, Mobile, Saler_status, Create_time, Create_user, Update_time, Update_user, Remark, Salesperson) values(?,?,?,?,1,now(),?,now(),?,NULL,NULL)",
 		Args: args2,
 	}
-	var execReqList = []SqlExecRequest{execReq1, execReq2}
+	var execReqList = []SqlExecRequest{execReq2, execReq1}
 	err := m.d.dbCli.TransationExcute(execReqList)
 	if err == nil {
 		return uid.String(), nil

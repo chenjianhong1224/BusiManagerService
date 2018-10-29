@@ -15,7 +15,8 @@ database:
   host: localhost
   port: 3306
   user: root
-  password: cjh
+#  password: cjh
+  password: 123456
   db_name: db_somp 
   max_open_conn_num: 512
   max_idle_conn_num: 512
@@ -26,14 +27,14 @@ database:
 
 stat:
   output_cycle: 1
-  stat_file: "stat/SystemManagerService"
+  stat_file: "stat/BusiManagerService"
   remote_mode: 0
   queue_capacity: 10000
   routine_count: 4 
 
 logger:
   level: debug
-  filename: log/SystemManagerService.log
+  filename: log/BusiManagerService.log
   max_size: 50
   max_backups: 20
   max_age: 15
