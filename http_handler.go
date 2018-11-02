@@ -28,6 +28,7 @@ type httpHandler struct {
 	wholesalerBannerSv *wholesaler_banner_service
 	salermanSv         *salseman_service
 	wholesalerSv       *wholesaler_service
+	wholesalerMemberSv *wholesaler_member_service
 }
 
 func (ci *clientInfo) inetAton() {
@@ -114,6 +115,7 @@ func (m *httpHandler) process(w http.ResponseWriter, r *http.Request) {
 			m.processFactory(body, w)
 		} else if req.Cmd == 3020 || req.Cmd == 3022 || req.Cmd == 3024 || req.Cmd == 3026 {
 			m.processSalerman(body, w)
+		} else if req.Cmd == 3040 || req.Cmd == 3042 || req.Cmd == 3044 || req.Cmd == 3046 {
 		} else {
 			var respHead ResponseHead
 			respHead = ResponseHead{RequestId: req.RequestId, ErrorCode: 9999, Cmd: req.Cmd, ErrorMsg: "cmd不合法"}
@@ -561,6 +563,68 @@ func (m *httpHandler) processSalerman(body []byte, w http.ResponseWriter) {
 			resp.Data.SalesmanName = tSalseman[0].Salesman_name
 			resp.Data.LinkPhone = tSalseman[0].Salesman_phone
 			resp.Data.WholesalerId = tSalseman[0].Saler_uuid
+		}
+	}
+	if err != nil {
+		resp.ErrorCode = 9999
+		resp.ErrorMsg = err.Error()
+	}
+	jsonData, err := json.Marshal(resp)
+	if err != nil {
+		zap.L().Error(fmt.Sprintf("json transfer error %s", err.Error()))
+		m.ivalidResp(w)
+		return
+	}
+	w.WriteHeader(http.StatusOK)
+	w.Write([]byte(jsonData))
+	return
+}
+
+func (m *httpHandler) processMember(body []byte, w http.ResponseWriter) {
+	var req WholesalerMemberManagerReq
+	err := json.Unmarshal(body, &req)
+	if err != nil {
+		zap.L().Error(fmt.Sprintf("json transfer error %s", err.Error()))
+		m.ivalidResp(w)
+		return
+	}
+	var resp WholesalerMemberManagerResp
+	resp = WholesalerMemberManagerResp{
+		ResponseHead{
+			RequestId: req.RequestId,
+			ErrorCode: 0,
+			Cmd:       req.Cmd + 1,
+		},
+		WholesalerMemberManagerData{
+			MemberId:     req.Data.MemberId,
+			MemberName:   req.Data.MemberName,
+			LinkPhone:    req.Data.LinkPhone,
+			WholesalerId: req.Data.WholesalerId,
+			SalesmanId:   req.Data.SalesmanId,
+		},
+	}
+	resp.Data = req.Data
+	var member_uuid string
+	if req.Cmd == 3040 {
+		member_uuid, err = m.wholesalerMemberSv.addWholesalerMember(req.Data, req.UserId)
+		resp.Data.MemberId = member_uuid
+	} else if req.Cmd == 3042 {
+		err = m.wholesalerMemberSv.updateWholesalerMember(req.Data, req.UserId)
+	} else if req.Cmd == 3044 {
+		err = m.wholesalerMemberSv.deleteWholesalerMember(req.Data, req.UserId)
+	} else if req.Cmd == 3046 {
+		var tWholeSalerMember []*TWholeSalerMember
+		tWholeSalerMember, err = m.wholesalerMemberSv.queryWholesalerMemberByExample(req.Data)
+		if len(tWholeSalerMember) == 0 {
+			err = errors.New("查询不到对应的数据")
+		} else if tWholeSalerMember[0].member_status != 1 {
+			err = errors.New("查询不到对应的数据")
+		} else {
+			resp.Data.LinkPhone = tWholeSalerMember[0].mobile
+			resp.Data.MemberId = tWholeSalerMember[0].member_uuid
+			resp.Data.MemberName = tWholeSalerMember[0].member_name.String
+			resp.Data.SalesmanId = tWholeSalerMember[0].salesman_uuid.String
+			resp.Data.WholesalerId = tWholeSalerMember[0].saler_uuid.String
 		}
 	}
 	if err != nil {

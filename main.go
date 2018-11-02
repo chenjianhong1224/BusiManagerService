@@ -74,6 +74,7 @@ func main() {
 		wholesalerBannerSv: &wholesaler_banner_service{d: db},
 		salermanSv:         &salseman_service{d: db},
 		wholesalerSv:       &wholesaler_service{d: db},
+		wholesalerMemberSv: &wholesaler_member_service{d: db},
 	}
 	if err = svc.start(); err != nil {
 		panic(err)
