@@ -22,7 +22,7 @@ func (m *wxpluginProgram_service) addWxpluginProgram(req WxpluginProgramManagerD
 	args1 = append(args1, req.ProgramType)
 
 	queryReq := &SqlExecRequest{
-		SQL:  "insert into t_Wxplugin_program(Program_uuid, Program_name, Appid, Appsecrete, Program_status, Saler_uuid, Program_type) values(?,?,?,?,1,?,?)",
+		SQL:  "insert into t_wxplugin_program(Program_uuid, Program_name, Appid, Appsecrete, Program_status, Saler_uuid, Program_type) values(?,?,?,?,1,?,?)",
 		Args: args1}
 	excuteRep := m.d.dbCli.Query(queryReq)
 	if excuteRep.Error() != nil {
@@ -41,7 +41,7 @@ func (m *wxpluginProgram_service) updateWxpluginProgram(req WxpluginProgramManag
 	args1 = append(args1, req.ProgramType)
 	args1 = append(args1, req.ProgId)
 	queryReq := &SqlExecRequest{
-		SQL:  "update t_Wxplugin_program  set Program_name = ?, Appid = ?, Appsecrete = ?, Saler_uuid = ?, Program_type = ? where Program_uuid = ?",
+		SQL:  "update t_wxplugin_program  set Program_name = ?, Appid = ?, Appsecrete = ?, Saler_uuid = ?, Program_type = ? where Program_uuid = ?",
 		Args: args1}
 	excuteRep := m.d.dbCli.Query(queryReq)
 	if excuteRep.Error() != nil {
@@ -55,7 +55,7 @@ func (m *wxpluginProgram_service) deleteWxpluginProgram(req WxpluginProgramManag
 	args1 := []interface{}{}
 	args1 = append(args1, req.ProgId)
 	queryReq := &SqlExecRequest{
-		SQL:  "update t_Wxplugin_program  set Program_status = 0 where Program_uuid = ?",
+		SQL:  "update t_wxplugin_program  set Program_status = 0 where Program_uuid = ?",
 		Args: args1}
 	excuteRep := m.d.dbCli.Query(queryReq)
 	if excuteRep.Error() != nil {
@@ -68,7 +68,7 @@ func (m *wxpluginProgram_service) deleteWxpluginProgram(req WxpluginProgramManag
 func (m *wxpluginProgram_service) queryWxpluginProgramByExample(req WxpluginProgramManagerData) ([]*TWxpluginProgram, error) {
 	args1 := []interface{}{}
 	var sql string
-	sql = "select Program_id, Program_uuid, Program_name, Appid, Appsecrete, Program_status, Saler_uuid, Program_type from t_Wxplugin_program where 1=1 "
+	sql = "select Program_id, Program_uuid, Program_name, Appid, Appsecrete, Program_status, Saler_uuid, Program_type from t_wxplugin_program where 1=1 "
 	if len(req.AppId) != 0 {
 		sql += " and Appid = ?"
 		args1 = append(args1, req.AppId)
@@ -99,7 +99,7 @@ func (m *wxpluginProgram_service) queryWxpluginProgramByExample(req WxpluginProg
 	reply := m.d.dbCli.Query(queryReq)
 	queryRep, _ := reply.(*SqlQueryReply)
 	if queryRep.Err != nil {
-		zap.L().Error(fmt.Sprintf("query t_Wxplugin_program error:%s", queryRep.Err.Error()))
+		zap.L().Error(fmt.Sprintf("query t_wxplugin_program error:%s", queryRep.Err.Error()))
 		return nil, queryRep.Err
 	}
 	var returnMenus []*TWxpluginProgram = []*TWxpluginProgram{}
